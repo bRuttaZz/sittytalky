@@ -1,0 +1,6 @@
+data/site.brutt.sittytalky.desktop.in
+data/site.brutt.sittytalky.metainfo.xml.in
+data/site.brutt.sittytalky.gschema.xml
+src/main.py
+src/window.py
+src/window.ui
