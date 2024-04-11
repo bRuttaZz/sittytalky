@@ -1,3 +1,5 @@
+**⚠️ NB : A WORK IN PROGRESS**
+
 <img src="./data/icons/hicolor/scalable/apps/site.brutt.sittytalky.svg" width=50px>
 
 # Sitty Talky
