@@ -1,7 +1,7 @@
 {
     "app-id" : "site.brutt.sittytalky",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "master",
+    "runtime-version" : "46",
     "sdk" : "org.gnome.Sdk",
     "command" : "sittytalky",
     "finish-args" : [
@@ -30,7 +30,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "file:///home/bruttazz/Documents"
+                    "url" : "file:///home/bruttazz/Documents/SittyTalky",
+                    "branch": "main"
                 }
             ]
         }

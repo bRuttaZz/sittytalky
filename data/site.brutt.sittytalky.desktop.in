@@ -1,8 +1,11 @@
 [Desktop Entry]
-Name=sittytalky
+Name=SittyTalky
+GenericName=Sitty Talky
 Exec=sittytalky
 Icon=site.brutt.sittytalky
 Terminal=false
 Type=Application
-Categories=GTK;
+Categories=GTK;Network;GNOME;
 StartupNotify=true
+Keywords=Network;sittytalky;sitty;radio;
+Comment=A simple LAN broadcaster.
