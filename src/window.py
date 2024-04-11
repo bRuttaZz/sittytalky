@@ -17,14 +17,67 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import os
+from random import choice
+from xml.sax.saxutils import escape
 from gi.repository import Adw
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
+
+
+WELCOME_MSGS = [
+    "Pollute your local traffic by sending a message!",
+    "Spread your sweet message over the LAN",
+    "Spread a revolutionary message over the LAN",
+]
 
 @Gtk.Template(resource_path='/site/brutt/sittytalky/window.ui')
 class SittytalkyWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'SittytalkyWindow'
 
-    label = Gtk.Template.Child()
+    msg_container = Gtk.Template.Child("msg-container")
+    send_btn = Gtk.Template.Child("send_btn")
+    message_box = Gtk.Template.Child("msg_entry")
+    # primary welcoming msg
+    primary_msg_bx = Gtk.Template.Child("primary_message")
 
-    def __init__(self, **kwargs):
+    def __init__(self, asset_path:str|None, **kwargs):
         super().__init__(**kwargs)
+        self.asset_path = asset_path
+        self.primary_msg_bx.set_markup(f'<span alpha="50%">{choice(WELCOME_MSGS)}</span>')
+
+    def append_incoming_msg(self, msg:str, sender:str):
+        if self.primary_msg_bx:
+            self.msg_container.remove(self.primary_msg_bx)
+            self.primary_msg_bx = None
+        label = Gtk.Label(margin_top=6, margin_start=10, margin_end=10)
+        label.set_markup(f'<span color="#7db340"><b>[@{escape(sender)}] ></b></span> {escape(msg)}')
+        label.set_wrap(True)
+        label.set_xalign(0)
+        self.msg_container.append(label)
+
+
+    def append_outgoing_msg(self, msg:str):
+        if self.primary_msg_bx:
+            self.msg_container.remove(self.primary_msg_bx)
+            self.primary_msg_bx = None
+        label = Gtk.Label(margin_top=6, margin_start=10, margin_end=10)
+        label.set_markup(f'{escape(msg)} 🔵')
+        label.set_wrap(True)
+        label.set_xalign(1)
+        self.msg_container.append(label)
+
+    def bind_send_btn_event(self, callback:callable):
+        """Bind callback on clicking send button or other send message ui trigers"""
+        def _on_btn_click(_):
+            msg = self.message_box.get_text()
+            self.message_box.set_text("")
+            self.append_outgoing_msg(msg)
+            callback(msg)
+
+        self.send_btn.connect("clicked", _on_btn_click)
+        self.message_box.connect("activate", _on_btn_click)
+
+
+
+
+

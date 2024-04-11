@@ -17,6 +17,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import os
 import sys
 import gi
 
@@ -26,12 +27,13 @@ gi.require_version('Adw', '1')
 from gi.repository import Gtk, Gio, Adw
 from .window import SittytalkyWindow
 from lib.server import SittyTalkyServer
+from lib.sender import send_message
 
 
 class SittytalkyApplication(Adw.Application):
     """The main application singleton class."""
 
-    def __init__(self):
+    def __init__(self, asset_path:str|None):
         super().__init__(application_id='site.brutt.sittytalky',
                          flags=Gio.ApplicationFlags.DEFAULT_FLAGS)
         self.create_action('quit', lambda *_: self.quit(), ['<primary>q'])
@@ -40,19 +42,24 @@ class SittytalkyApplication(Adw.Application):
         # server
         self.st_server = SittyTalkyServer()
 
+        self.asset_path = asset_path
+
     def do_activate(self):
         """Called when the application is activated.
 
         We raise the application's main window, creating it if
         necessary.
         """
-        win = self.props.active_window
-        if not win:
-            win = SittytalkyWindow(application=self)
-        win.present()
+        self.win = self.props.active_window
+        if not self.win:
+            self.win = SittytalkyWindow(self.asset_path, application=self)
+            self.win.bind_send_btn_event(send_message)
+        self.win.present()
 
         # starting the server
         self.st_server.start_server()
+        self.st_server.on_message(self.win.append_incoming_msg)
+        # self.st_server.test_triger() # for testing
 
     def on_about_action(self, widget, _):
         """Callback for the app.about action."""
@@ -60,6 +67,7 @@ class SittytalkyApplication(Adw.Application):
                                 application_name='Sitty Talky',
                                 application_icon='site.brutt.sittytalky',
                                 developer_name='@bRuttaZz',
+
                                 version='0.1.0',
                                 developers=['bRuttaZz https://brutt.site'],
                                 copyright='🄯 2024 bRuttaZz',
@@ -83,13 +91,7 @@ class SittytalkyApplication(Adw.Application):
             self.set_accels_for_action(f"app.{name}", shortcuts)
 
 
-    def on_quit(self, action, param):
-        # application garbage collection
-        self.st_server.stop_server()
-
-        self.quit()
-
 def main(version):
     """The application's entry point."""
-    app = SittytalkyApplication()
+    app = SittytalkyApplication(os.getenv('ASSETS_PATH'))
     return app.run(sys.argv)

@@ -29,6 +29,8 @@ VERSION = '@VERSION@'
 pkgdatadir = '@pkgdatadir@'
 localedir = '@localedir@'
 
+ASSETS_PATH = '@assests_path@'
+
 sys.path.insert(1, pkgdatadir)
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 locale.bindtextdomain('sittytalky', localedir)
@@ -43,4 +45,8 @@ if __name__ == '__main__':
     resource._register()
 
     from sittytalky import main
+
+    # setting the environment variables
+    os.environ['ASSETS_PATH'] = str(ASSETS_PATH)
+
     sys.exit(main.main(VERSION))
