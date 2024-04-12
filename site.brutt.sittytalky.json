@@ -29,9 +29,8 @@
             "buildsystem" : "meson",
             "sources" : [
                 {
-                    "type" : "git",
-                    "url" : "file:///home/bruttazz/Documents/SittyTalky",
-                    "branch": "main"
+                    "type" : "dir",
+                    "path" : "./"
                 }
             ]
         }

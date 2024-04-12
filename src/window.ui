@@ -75,7 +75,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="send_btn">
-                    <property name="icon-name">mail-send</property>
+                    <property name="icon-name">mail-send-symbolic</property>
                     <style>
                       <class name="suggested-action"/>
                     </style>

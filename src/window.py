@@ -44,6 +44,7 @@ class SittytalkyWindow(Adw.ApplicationWindow):
         super().__init__(**kwargs)
         self.asset_path = asset_path
         self.primary_msg_bx.set_markup(f'<span alpha="50%">{choice(WELCOME_MSGS)}</span>')
+        # self.append_incoming_msg("ed kuttaa", "bruttazz")
 
     def append_incoming_msg(self, msg:str, sender:str):
         if self.primary_msg_bx:
