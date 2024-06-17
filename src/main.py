@@ -20,15 +20,13 @@
 import os
 import sys
 import gi
+import asyncio
 
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 
 from gi.repository import Gtk, Gio, Adw
 from .window import SittytalkyWindow
-from lib.server import SittyTalkyServer
-from lib.sender import send_message
-
 
 class SittytalkyApplication(Adw.Application):
     """The main application singleton class."""
@@ -38,10 +36,6 @@ class SittytalkyApplication(Adw.Application):
                          flags=Gio.ApplicationFlags.DEFAULT_FLAGS)
         self.create_action('quit', lambda *_: self.quit(), ['<primary>q'])
         self.create_action('about', self.on_about_action)
-
-        # server
-        self.st_server = SittyTalkyServer()
-
         self.asset_path = asset_path
 
     def do_activate(self):
@@ -53,13 +47,7 @@ class SittytalkyApplication(Adw.Application):
         self.win = self.props.active_window
         if not self.win:
             self.win = SittytalkyWindow(self.asset_path, application=self)
-            self.win.bind_send_btn_event(send_message)
         self.win.present()
-
-        # starting the server
-        self.st_server.start_server()
-        self.st_server.on_message(self.win.append_incoming_msg)
-        # self.st_server.test_triger() # for testing
 
     def on_about_action(self, widget, _):
         """Callback for the app.about action."""

@@ -8,4 +8,5 @@ build: site.brutt.sittytalky.json ## build and install the application for testi
 run: site.brutt.sittytalky.json build  ## run the application after build
 	@flatpak run site.brutt.sittytalky
 
-
+remove: site.brutt.sittytalky.json  ## remove application from system
+	@flatpak uninstall site.brutt.sittytalky

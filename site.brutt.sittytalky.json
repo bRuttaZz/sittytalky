@@ -9,7 +9,8 @@
         "--share=ipc",
         "--socket=fallback-x11",
         "--device=dri",
-        "--socket=wayland"
+        "--socket=wayland",
+        "--socket=pulseaudio"
     ],
     "cleanup" : [
         "/include",
@@ -23,6 +24,30 @@
         "*.a"
     ],
     "modules" : [
+    	{
+    	   "name" : "pip-modules",
+    	   "buildsystem": "simple",
+    	   "build-commands": [
+    	   	"pip3 install --prefix=/app pycryptodome-3.20.0-cp35-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl stmp_server-0.0.2-py3-none-any.whl playsound-1.3.0.tar.gz"
+    	   ],
+    	   "sources" : [
+    	   	{
+                    "type" : "file",
+                    "url" : "https://files.pythonhosted.org/packages/af/20/5f29ec45462360e7f61e8688af9fe4a0afae057edfabdada662e11bf97e7/pycryptodome-3.20.0-cp35-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+                    "sha256" : "76cb39afede7055127e35a444c1c041d2e8d2f1f9c121ecef573757ba4cd2c3c"
+                },
+    	   	{
+                    "type" : "file",
+                    "url" : "https://files.pythonhosted.org/packages/a0/b4/7933f0222994fb33d14e95a07cb5a10b7abc6130db16625ab98a219098ac/stmp_server-0.0.2-py3-none-any.whl",
+                    "sha256" : "e7933281af597fe4f886ad67b16c887d18de9ee83082177cea468b496378c490"
+                },
+                {
+                    "type" : "file",
+                    "url": "https://files.pythonhosted.org/packages/67/8c/c9f46b4b194126c4abb12e96321a6bea5c8dcc5c0e4d97622c14dfabe299/playsound-1.3.0.tar.gz",
+                    "sha256": "cc6ed11d773034b0ef624e6bb4bf50f4b76b8414a59ce6d38afb89b423297ced"
+                }
+    	   ]
+    	},
         {
             "name" : "sittytalky",
             "builddir" : true,

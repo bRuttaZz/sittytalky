@@ -40,7 +40,7 @@ subdir('assets')
 sittytalky_sources = [
   '__init__.py',
   'main.py',
-  'window.py',
+  'window.py'
 ]
 
 install_data(sittytalky_sources, install_dir: moduledir)
