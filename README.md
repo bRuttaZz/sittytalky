@@ -11,8 +11,7 @@ A simple GTK application to broadcast message over local wifi (have fun :) (Some
 
 - **Build using [Gnome-Builder](https://github.com/GNOME/gnome-builder)**
 
-
-Find it over here
+**The in-house protocol suite can be found over here : [STMP](https://github.com/bruttazz/stmp)**
 
 # Installation (early version)
 
