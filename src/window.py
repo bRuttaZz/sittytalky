@@ -18,11 +18,14 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import os
+import sys
+import asyncio
+import logging
 from playsound import playsound
 from random import choice
 from xml.sax.saxutils import escape
 from gi.repository import Adw
-from gi.repository import Gtk, Gdk, GObject, Gio, GLib
+from gi.repository import Gtk, GObject, Gio, GLib
 from stmp import STMPServer
 from stmp.interfaces import Packet, Peer
 
@@ -62,7 +65,7 @@ class STMPServerWorker(GObject.Object):
         """Run the blocking operation in a worker thread."""
         print(f"Starting STMP Server")
         try:
-            self.server.run()
+            asyncio.run(self.server.listen_udp_async())
         except  Exception as exp:
             print(f"Error booting up server : ", exp)
         task.return_error(GLib.Error())
@@ -91,6 +94,11 @@ class SittytalkyWindow(Adw.ApplicationWindow):
         self.st_server = STMPServer()
         self.st_server.route(STMP_ROUTE)(self.get_message)
         self.bind_send_btn_event(self.send_message)
+        stp_logger = logging.getLogger("stmp")
+        handler = logging.StreamHandler(sys.stdout)
+        stp_logger.addHandler(handler)
+        stp_logger.setLevel(logging.INFO)
+
         worker = STMPServerWorker(self.st_server, self._handle_startup_callback)
         worker.start()
 
@@ -120,7 +128,7 @@ class SittytalkyWindow(Adw.ApplicationWindow):
 
     def send_message(self, msg:str):
         """handle out going messages"""
-        self.st_server.broadcast(STMP_ROUTE, msg)
+        self.st_server.send_udp(msg, STMP_ROUTE, pass_pub_key=False)
 
     def append_incoming_msg(self, msg:str, sender:str, color:str):
         if self.primary_msg_bx:
