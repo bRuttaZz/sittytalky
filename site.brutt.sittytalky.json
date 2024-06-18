@@ -28,7 +28,7 @@
     	   "name" : "pip-modules",
     	   "buildsystem": "simple",
     	   "build-commands": [
-    	   	"pip3 install --prefix=/app pycryptodome-3.20.0-cp35-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl stmp_server-0.0.2-py3-none-any.whl playsound-1.3.0.tar.gz"
+    	   	"pip3 install --prefix=/app pycryptodome-3.20.0-cp35-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl stmp_server-0.0.3-py3-none-any.whl playsound-1.3.0.tar.gz"
     	   ],
     	   "sources" : [
     	   	{
@@ -38,8 +38,8 @@
                 },
     	   	{
                     "type" : "file",
-                    "url" : "https://files.pythonhosted.org/packages/a0/b4/7933f0222994fb33d14e95a07cb5a10b7abc6130db16625ab98a219098ac/stmp_server-0.0.2-py3-none-any.whl",
-                    "sha256" : "e7933281af597fe4f886ad67b16c887d18de9ee83082177cea468b496378c490"
+                    "url" : "https://files.pythonhosted.org/packages/55/e7/2b41ec69f731a81230cd3ed0f05b3bbc06fa41cc4b32fb49c80b790ed23e/stmp_server-0.0.3-py3-none-any.whl",
+                    "sha256" : "952754af7064d1b4ef11b7a36a569d791911427e7370b0644794d9328ff72888"
                 },
                 {
                     "type" : "file",
