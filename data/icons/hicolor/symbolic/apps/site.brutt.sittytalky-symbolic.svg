@@ -18,8 +18,8 @@
       height="200"
       fill="url(#Gradient)"
       ry="128"
-      x="0"
-      y="0" />
+      x="26"
+      y="26" />
   <use xlink:href="#child-svg" filter="url(#alpha-to-white)"
-       transform="matrix(8,0,0,8,37,37)" />
+       transform="matrix(8,0,0,8,62,62)" />
 </svg>
