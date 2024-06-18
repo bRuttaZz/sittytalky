@@ -7,7 +7,7 @@
     <property name="default-height">500</property>
     <property name="title">Sitty Talky</property>
     <style>
-      <!-- <class name="devel"/> -->
+      <class name="devel"/>
     </style>
     <property name="content">
       <object class="AdwToolbarView">
